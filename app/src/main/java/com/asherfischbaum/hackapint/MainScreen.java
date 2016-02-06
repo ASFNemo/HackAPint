@@ -16,6 +16,8 @@ public class MainScreen extends AppCompatActivity {
     private ImageButton mPintButton;
     public static final String PREFS_NAME = "LocationPrefFile";
 
+    private static Double lat,lng;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +36,8 @@ public class MainScreen extends AppCompatActivity {
                 //!!before uncommenting handle permission check
                 //send location to DB
                 gps.pushLocationToDB();
-                gps.getLat();
+                lat = gps.getLat();
+                lng = gps.getLong();
 
                 Intent intent = new Intent(MainScreen.this, MatchPage.class);
                 startActivity(intent);
@@ -47,5 +50,12 @@ public class MainScreen extends AppCompatActivity {
         });
     }
 
+    public static Double getLat() {
+        return lat;
+    }
+
+    public static Double getLng(){
+        return lng;
+    }
 
 }

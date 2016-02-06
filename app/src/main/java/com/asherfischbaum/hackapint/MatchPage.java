@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -38,7 +39,8 @@ public class MatchPage extends AppCompatActivity {
     private Firebase firebase;
     private GeoFire geoFire;
 
-    
+    private Double lat = MainScreen.getLat();
+    private Double lng = MainScreen.getLng();
 
 
     @Override
@@ -47,7 +49,7 @@ public class MatchPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match_page);
 
-        final GPSTrack gps = new GPSTrack(this);
+        GPSTrack gps = new GPSTrack(this);
 
         ImageButton mGoogleMapsButton = (ImageButton)findViewById(R.id.googleMapsButton);
         mGoogleMapsButton.setOnClickListener(new View.OnClickListener() {
@@ -71,40 +73,30 @@ public class MatchPage extends AppCompatActivity {
         geoFire = con.getGeoFire();
         final Firebase firebase = con.getFireDB();
 
-        Double lat;
-        geoFire.getLocation(GPSTrack.USER_KEY, new LocationCallback() {
-            @Override
-            public void onLocationResult(String key, GeoLocation location) {
 
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
-
-        GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(gps.getLat(), gps.getLong()), 1.5);
+        GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(lat, lng), 1.5);
 
         geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
             @Override
             public void onKeyEntered(String key, GeoLocation location) {
 
-                final String THIS_KEY = key;
-                firebase.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        mNameText.setText(dataSnapshot.child("users").child(THIS_KEY).child("name").getValue().toString());
-                        mAgeText.setText(dataSnapshot.child("users").child(THIS_KEY).child("age").getValue().toString());
-                        mGenderText.setText(dataSnapshot.child("users").child(THIS_KEY).child("gender").getValue().toString());
-                        mMobileText.setText(dataSnapshot.child("users").child(THIS_KEY).child("mobile").getValue().toString());
-                    }
+                if(!key.equals(GPSTrack.USER_KEY)) {
+                    final String THIS_KEY = key;
+                    firebase.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            mNameText.setText(dataSnapshot.child("users").child(THIS_KEY).child("name").getValue().toString());
+                            mAgeText.setText(dataSnapshot.child("users").child(THIS_KEY).child("age").getValue().toString());
+                            mGenderText.setText(dataSnapshot.child("users").child(THIS_KEY).child("gender").getValue().toString());
+                            mMobileText.setText(dataSnapshot.child("users").child(THIS_KEY).child("mobile").getValue().toString());
+                        }
 
-                    @Override
-                    public void onCancelled(FirebaseError firebaseError) {
+                        @Override
+                        public void onCancelled(FirebaseError firebaseError) {
 
-                    }
-                });
+                        }
+                    });
+                }
             }
 
             @Override
@@ -130,7 +122,7 @@ public class MatchPage extends AppCompatActivity {
     }
 
 
-      //THIS IS FOR THE BUTTON WHERE THE USER IS TOLD THE PUB AND ADDRESS AND THEY CAN GO TO GOOGLE MAPS.
+    //THIS IS FOR THE BUTTON WHERE THE USER IS TOLD THE PUB AND ADDRESS AND THEY CAN GO TO GOOGLE MAPS.
 
     private void opePreferredLocationInMap(){
         //this is getting the set location in my weather app, so change it for the beerapp
