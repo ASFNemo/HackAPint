@@ -99,18 +99,18 @@ public class GPSTrack implements GoogleApiClient.ConnectionCallbacks, GoogleApiC
 
     }
 
-    public String getLat(){
+    public Double getLat(){
         if(location!=null)
-            return String.valueOf(location.getLatitude());
+            return location.getLatitude();
         else{
             Log.d(TAG, "LOCATION IS NULL");
             return null;
         }
     }
 
-    public String getLong(){
+    public Double getLong(){
         if(location!=null)
-            return String.valueOf(location.getLongitude());
+            return location.getLongitude();
         else{
             Log.d(TAG,"LOCATION IS NULL");
             return null;
@@ -119,7 +119,7 @@ public class GPSTrack implements GoogleApiClient.ConnectionCallbacks, GoogleApiC
 
 
     public void pushLocationToDB(){
-        geoFire.setLocation(USER_KEY, new GeoLocation(Double.parseDouble(getLat()), Double.parseDouble(getLong())));
+        geoFire.setLocation(USER_KEY, new GeoLocation(getLat(), getLong()));
     }
 
 

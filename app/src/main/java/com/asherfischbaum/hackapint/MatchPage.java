@@ -21,6 +21,7 @@ import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 import com.firebase.geofire.GeoQuery;
 import com.firebase.geofire.GeoQueryEventListener;
+import com.firebase.geofire.LocationCallback;
 
 public class MatchPage extends AppCompatActivity {
 
@@ -37,6 +38,8 @@ public class MatchPage extends AppCompatActivity {
     private Firebase firebase;
     private GeoFire geoFire;
 
+    
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class MatchPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match_page);
 
+        final GPSTrack gps = new GPSTrack(this);
 
         ImageButton mGoogleMapsButton = (ImageButton)findViewById(R.id.googleMapsButton);
         mGoogleMapsButton.setOnClickListener(new View.OnClickListener() {
@@ -67,9 +71,20 @@ public class MatchPage extends AppCompatActivity {
         geoFire = con.getGeoFire();
         final Firebase firebase = con.getFireDB();
 
-        GPSTrack gps = new GPSTrack(this);
+        Double lat;
+        geoFire.getLocation(GPSTrack.USER_KEY, new LocationCallback() {
+            @Override
+            public void onLocationResult(String key, GeoLocation location) {
 
-        GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(Double.parseDouble("50.93693693693694"),  Double.parseDouble("-1.4010113828050799")),1.5);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+        GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(gps.getLat(), gps.getLong()), 1.5);
 
         geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
             @Override
