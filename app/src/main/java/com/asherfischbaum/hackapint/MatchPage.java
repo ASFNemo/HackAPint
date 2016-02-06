@@ -1,9 +1,11 @@
 package com.asherfischbaum.hackapint;
 
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,7 +15,9 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -41,6 +45,9 @@ public class MatchPage extends AppCompatActivity {
 
     private Double lat = MainScreen.getLat();
     private Double lng = MainScreen.getLng();
+
+    private String OTHER_KEY;
+    private final Activity matchPage = this;
 
 
     @Override
@@ -73,7 +80,6 @@ public class MatchPage extends AppCompatActivity {
         geoFire = con.getGeoFire();
         final Firebase firebase = con.getFireDB();
 
-
         GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(lat, lng), 1.5);
 
         geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
@@ -82,6 +88,7 @@ public class MatchPage extends AppCompatActivity {
 
                 if(!key.equals(GPSTrack.USER_KEY)) {
                     final String THIS_KEY = key;
+                    OTHER_KEY = key;
                     firebase.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -99,7 +106,7 @@ public class MatchPage extends AppCompatActivity {
                 }
             }
 
-            @Override
+                @Override
             public void onKeyExited(String key) {
 
             }
@@ -116,6 +123,44 @@ public class MatchPage extends AppCompatActivity {
 
             @Override
             public void onGeoQueryError(FirebaseError error) {
+
+            }
+        });
+
+        /*
+        Try to fetch acceptButton if was pressed
+         */
+        firebase.addChildEventListener(new ChildEventListener() {
+
+
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            /*
+            Launch Toast if other user pressed Button
+             */
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                if((boolean) dataSnapshot.child(OTHER_KEY).child("hasAccepted").getValue()){
+                    String name = dataSnapshot.child(OTHER_KEY).child("name").getValue().toString();
+                    Toast.makeText(matchPage, name + " confirmed he will be there in " +10+ " minutes.", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
 
             }
         });
@@ -143,4 +188,5 @@ public class MatchPage extends AppCompatActivity {
             startActivity(intent);
         //else print to log ?
     }
+
 }
