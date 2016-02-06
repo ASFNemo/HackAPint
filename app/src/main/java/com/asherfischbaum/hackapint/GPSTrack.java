@@ -14,6 +14,8 @@ import android.util.Log;
 import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
@@ -25,10 +27,11 @@ import com.google.android.gms.location.LocationServices;
 public class GPSTrack implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
 
     private Firebase dbRef;
+    private GeoFire geoFire;
     final String ACCESS_KEY = "kyT8ImvzNUhDKKCGLGbxFgJ60923LldfWuTeSt5m";
 
     //need a way to get USER_KEY by authentication form db
-    private final static String USER_KEY = "-K9o7msbxHVznV9UHqhA";
+    public final static String USER_KEY = "-K9o7msbxHVznV9UHqhB";
 
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
@@ -67,6 +70,8 @@ public class GPSTrack implements GoogleApiClient.ConnectionCallbacks, GoogleApiC
             public void onAuthenticationError(FirebaseError firebaseError) {
             }
         });
+
+        geoFire = new GeoFire(dbRef);
     }
 
     private void updateLocation() {
@@ -112,9 +117,9 @@ public class GPSTrack implements GoogleApiClient.ConnectionCallbacks, GoogleApiC
         }
     }
 
+
     public void pushLocationToDB(){
-        dbRef.child("locations").child(USER_KEY).child("lat").setValue(getLat());
-        dbRef.child("locations").child(USER_KEY).child("long").setValue(getLong());
+        geoFire.setLocation(USER_KEY, new GeoLocation(Double.parseDouble(getLat()), Double.parseDouble(getLong())));
     }
 
 

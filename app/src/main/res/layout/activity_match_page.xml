@@ -18,7 +18,7 @@
         android:id="@+id/googleMapsButton"
         android:background="@mipmap/botton"
         android:layout_alignBottom="@+id/timeText"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -79,13 +79,12 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="name Filler"
         android:id="@+id/nameText"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/pubNameText"
-        android:layout_alignStart="@+id/pubNameText"
-        android:layout_marginTop="82dp"
+        android:layout_marginTop="97dp"
         android:focusableInTouchMode="true"
         android:textColor="#ece2c7"
-        android:textSize="24sp"/>
+        android:textSize="24sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@+id/timeText" />
 
     <TextView
         android:layout_width="wrap_content"

@@ -13,6 +13,15 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
+import com.firebase.geofire.GeoQuery;
+import com.firebase.geofire.GeoQueryEventListener;
+
 public class MatchPage extends AppCompatActivity {
 
     private TextView mNameText;
@@ -24,6 +33,9 @@ public class MatchPage extends AppCompatActivity {
     private TextView mAddressText;
     private TextView mPostcodeText;
     private TextView mTimeText;
+
+    private Firebase firebase;
+    private GeoFire geoFire;
 
 
     @Override
@@ -50,7 +62,56 @@ public class MatchPage extends AppCompatActivity {
         mPostcodeText = (TextView) findViewById(R.id.postcodeText);
         mTimeText = (TextView) findViewById(R.id.timeText);
 
+        Connections con = new Connections();
 
+        geoFire = con.getGeoFire();
+        final Firebase firebase = con.getFireDB();
+
+        GPSTrack gps = new GPSTrack(this);
+
+        GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(Double.parseDouble("50.93693693693694"),  Double.parseDouble("-1.4010113828050799")),1.5);
+
+        geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
+            @Override
+            public void onKeyEntered(String key, GeoLocation location) {
+
+                final String THIS_KEY = key;
+                firebase.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        mNameText.setText(dataSnapshot.child("users").child(THIS_KEY).child("name").getValue().toString());
+                        mAgeText.setText(dataSnapshot.child("users").child(THIS_KEY).child("age").getValue().toString());
+                        mGenderText.setText(dataSnapshot.child("users").child(THIS_KEY).child("gender").getValue().toString());
+                        mMobileText.setText(dataSnapshot.child("users").child(THIS_KEY).child("mobile").getValue().toString());
+                    }
+
+                    @Override
+                    public void onCancelled(FirebaseError firebaseError) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onKeyExited(String key) {
+
+            }
+
+            @Override
+            public void onKeyMoved(String key, GeoLocation location) {
+
+            }
+
+            @Override
+            public void onGeoQueryReady() {
+
+            }
+
+            @Override
+            public void onGeoQueryError(FirebaseError error) {
+
+            }
+        });
     }
 
 
@@ -75,9 +136,4 @@ public class MatchPage extends AppCompatActivity {
             startActivity(intent);
         //else print to log ?
     }
-
-
-
-
-
 }

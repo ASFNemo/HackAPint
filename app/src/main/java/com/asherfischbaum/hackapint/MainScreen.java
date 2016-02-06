@@ -14,7 +14,7 @@ import android.widget.ImageButton;
 public class MainScreen extends AppCompatActivity {
 
     private ImageButton mPintButton;
-
+    public static final String PREFS_NAME = "LocationPrefFile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,7 @@ public class MainScreen extends AppCompatActivity {
                 //!!before uncommenting handle permission check
                 //send location to DB
                 gps.pushLocationToDB();
+                gps.getLat();
 
                 Intent intent = new Intent(MainScreen.this, MatchPage.class);
                 startActivity(intent);
