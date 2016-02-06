@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -27,8 +28,10 @@ public class MatchPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match_page);
+
 
         ImageButton mGoogleMapsButton = (ImageButton)findViewById(R.id.googleMapsButton);
         mGoogleMapsButton.setOnClickListener(new View.OnClickListener() {

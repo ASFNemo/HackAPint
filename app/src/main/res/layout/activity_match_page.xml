@@ -118,11 +118,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="mobile filler"
         android:id="@+id/mobileText"
-        android:layout_below="@+id/ageText"
-        android:layout_alignLeft="@+id/ageText"
-        android:layout_alignStart="@+id/ageText"
         android:textSize="24sp"
         android:textColor="#ece2c7"
-        android:paddingTop="4sp"/>
+        android:paddingTop="4sp"
+        android:layout_below="@+id/ageText"
+        android:layout_alignEnd="@+id/addressText" />
 
 </RelativeLayout>

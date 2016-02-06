@@ -84,10 +84,11 @@ public class GPSTrack implements GoogleApiClient.ConnectionCallbacks, GoogleApiC
         return String.valueOf(getLocation().getAltitude());
     }
 
-    public void pushToDB(){
+    public void pushLocationToDB(){
         dbRef.child("locations").child(USER_KEY).child("lat").setValue(getLat());
         dbRef.child("locations").child(USER_KEY).child("long").setValue(getLong());
     }
+
 
     @Override
     public void onConnected(Bundle bundle) {
