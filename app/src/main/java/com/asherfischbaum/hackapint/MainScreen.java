@@ -1,5 +1,6 @@
 package com.asherfischbaum.hackapint;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,7 +21,9 @@ public class MainScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
 
-        final Context actContext = this;
+        final Activity actContext = this;
+
+        final GPSTrack gps = new GPSTrack(actContext);
 
         mPintButton = (ImageButton)findViewById(R.id.pintButton);
         mPintButton.setOnClickListener(new View.OnClickListener() {
@@ -30,8 +33,7 @@ public class MainScreen extends AppCompatActivity {
 
                 //!!before uncommenting handle permission check
                 //send location to DB
-                //GPSTrack gps = new GPSTrack(actContext);
-                //gps.pushLocationToDB();
+                gps.pushLocationToDB();
 
                 Intent intent = new Intent(MainScreen.this, MatchPage.class);
                 startActivity(intent);
