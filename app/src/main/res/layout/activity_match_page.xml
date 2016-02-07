@@ -123,4 +123,18 @@
         android:layout_below="@+id/ageText"
         android:layout_alignEnd="@+id/addressText" />
 
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Accept"
+        android:background="@mipmap/ic_launcher"
+        android:layout_alignEnd="@+id/postcodeText"
+        android:layout_alignStart="@+id/timeText"
+        android:layout_alignParentBottom="true"
+        android:layout_alignTop="@+id/pubNameText"/>
+
+
+
 </RelativeLayout>
