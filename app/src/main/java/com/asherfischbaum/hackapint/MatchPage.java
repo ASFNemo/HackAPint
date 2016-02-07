@@ -56,6 +56,8 @@ public class MatchPage extends AppCompatActivity {
     private String OTHER_KEY;
     private final Activity matchPage = this;
 
+    private PubMatcher pb;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +90,7 @@ public class MatchPage extends AppCompatActivity {
         mAddressText = (TextView) findViewById(R.id.addressText);
         mTimeText = (TextView) findViewById(R.id.timeText);
 
-        fillPubInfo();
+
 
 
 
@@ -105,15 +107,18 @@ public class MatchPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 firebase.child("users").child(GPSTrack.USER_KEY).child("hasAccepted").setValue(true);
-                Log.d("ACCEPT PRESSED:","The user has sent a notification to the other user");
+                Log.d("ACCEPT PRESSED:", "The user has sent a notification to the other user");
             }
         });
 
         GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(lat, lng), 1.5);
 
+        pb = new PubMatcher(50.9341890,-1.3956850);
+        pb.execute();
         geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
             @Override
             public void onKeyEntered(String key, GeoLocation location) {
+
 
                 if(!key.equals(GPSTrack.USER_KEY)) {
                     final String THIS_KEY = key;
@@ -156,6 +161,7 @@ public class MatchPage extends AppCompatActivity {
             }
         });
 
+        fillPubInfo();
         /*
         Try to fetch acceptButton if was pressed
          */
@@ -172,10 +178,10 @@ public class MatchPage extends AppCompatActivity {
              */
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                if((boolean) dataSnapshot.child(OTHER_KEY).child("hasAccepted").getValue()){
+                if ((boolean) dataSnapshot.child(OTHER_KEY).child("hasAccepted").getValue()) {
                     String name = dataSnapshot.child(OTHER_KEY).child("name").getValue().toString();
                     int time = getDiffTime(); //replace with difference form timestamp
-                    Toast.makeText(matchPage, name + " confirmed he will be there in " +time+ " minutes.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(matchPage, name + " confirmed he will be there in " + time + " minutes.", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -232,8 +238,9 @@ public class MatchPage extends AppCompatActivity {
         meetingTime = c;
         mTimeText.setText(sDateFormat.format(c.getTime()));
         //fill rest of it
-        PubMatcher pb = new PubMatcher(50.9341890,-1.3956850);
-        pb.execute();
+        Pub pubToGet = pb.getAPub();
+        mPubNameText.setText(pubToGet.getName());
+        mAddressText.setText(pubToGet.getVicinity());
     }
 
 

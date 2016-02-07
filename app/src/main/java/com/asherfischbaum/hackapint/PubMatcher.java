@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * Created by bogdanbuduroiu on 06/02/2016.
@@ -34,6 +35,8 @@ public class PubMatcher extends AsyncTask<Void, Void, Void> {
 
     private Double lat;
     private Double lng;
+
+    private ArrayList<Pub> pubs;
 
     final String API_KEY = "AIzaSyBrJ1pFSTBP_wiyaqObnX4a1X2LLLx_Ubg";
     final String BASE_API_URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?";
@@ -46,7 +49,7 @@ public class PubMatcher extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
 
-        ArrayList<Pub> pubs = getPubs(lat, lng);
+        pubs = getPubs(lat, lng);
 
         return null;
     }
@@ -59,7 +62,7 @@ public class PubMatcher extends AsyncTask<Void, Void, Void> {
             ArrayList<Pub> pubs = new ArrayList<>();
 
             Uri builtUri = Uri.parse(BASE_API_URL).buildUpon()
-                    .appendQueryParameter("location", "50.9341890,-1.3956850")
+                    .appendQueryParameter("location", loc)
                     .appendQueryParameter("radius", "1000")
                     .appendQueryParameter("types", "bar")
                     .appendQueryParameter("key", API_KEY)
@@ -116,38 +119,12 @@ public class PubMatcher extends AsyncTask<Void, Void, Void> {
         }
         return null;
     }
-}
 
-class Pub {
+    public Pub getAPub() {
+        Random rnd = new Random();
+        Pub pubToReturn;
 
-    public Pub(String name, Double lat, Double lng, String vicinity) {
-        this.name = name;
-        this.lat = lat;
-        this.lng = lng;
-        this.vicinity = vicinity;
-    }
-
-    private String name;
-
-    private Double lat;
-
-    private Double lng;
-
-    private String vicinity;
-
-    public String getName() {
-        return name;
-    }
-
-    public Double getLat() {
-        return lat;
-    }
-
-    public Double getLng() {
-        return lng;
-    }
-
-    public String getVicinity() {
-        return vicinity;
+        pubToReturn = this.pubs.get(2);
+        return pubToReturn;
     }
 }
