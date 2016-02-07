@@ -56,7 +56,7 @@
         android:layout_below="@+id/addressText"
         android:layout_alignLeft="@+id/addressText"
         android:layout_alignStart="@+id/addressText"
-        android:paddingTop="5sp"
+        android:paddingTop="6sp"
         android:textSize="24sp"/>
 
     <TextView
@@ -67,9 +67,9 @@
         android:id="@+id/timeText"
         android:paddingBottom="6sp"
         android:textSize="24sp"
-        android:layout_marginBottom="39dp"
+        android:layout_marginBottom="42dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/pubNameText" />
+        android:layout_alignStart="@+id/postcodeText" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -94,7 +94,7 @@
         android:textColor="#ece2c7"
         android:textSize="24sp"
         android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/timeText" />
+        android:layout_alignEnd="@+id/pubNameText" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -106,7 +106,8 @@
         android:layout_alignLeft="@+id/nameText"
         android:layout_alignStart="@+id/nameText"
         android:textSize="24sp"
-        android:textColor="#ece2c7"/>
+        android:textColor="#ece2c7"
+        android:paddingTop="6sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -119,7 +120,7 @@
         android:layout_alignStart="@+id/genderText"
         android:textColor="#ece2c7"
         android:textSize="24sp"
-        android:paddingTop="6sp"/>
+        android:paddingTop="6sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -129,9 +130,21 @@
         android:id="@+id/mobileText"
         android:textSize="24sp"
         android:textColor="#ece2c7"
-        android:paddingTop="4sp"
+        android:paddingTop="6sp"
         android:layout_below="@+id/ageText"
-        android:layout_alignEnd="@+id/addressText" />
+        android:layout_alignStart="@+id/ageText" />
+
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/backButton"
+        android:scaleType="fitXY"
+        android:background="@mipmap/arrow"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
 
 
 </RelativeLayout>

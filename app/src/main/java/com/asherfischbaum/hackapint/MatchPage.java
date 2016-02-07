@@ -56,6 +56,8 @@ public class MatchPage extends AppCompatActivity {
     private String OTHER_KEY;
     private final Activity matchPage = this;
 
+    private User matchedUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +111,21 @@ public class MatchPage extends AppCompatActivity {
             }
         });
 
+        ImageButton mBackButton;
+        mBackButton = (ImageButton) findViewById(R.id.backButton);
+        mBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MatchPage.this, MainScreen.class);
+                startActivity(intent);
+
+                //cancel data sent
+
+            }
+        });
+
+
+
         GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(lat, lng), 1.5);
 
         geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
@@ -121,10 +138,34 @@ public class MatchPage extends AppCompatActivity {
                     firebase.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            mNameText.setText(dataSnapshot.child("users").child(THIS_KEY).child("name").getValue().toString());
-                            mAgeText.setText(dataSnapshot.child("users").child(THIS_KEY).child("age").getValue().toString());
-                            mGenderText.setText(dataSnapshot.child("users").child(THIS_KEY).child("gender").getValue().toString());
-                            mMobileText.setText(dataSnapshot.child("users").child(THIS_KEY).child("mobile").getValue().toString());
+                            //match!
+                            Matcher matcher = new Matcher(THIS_KEY, GPSTrack.USER_KEY);
+                            matcher.sendRequest();
+
+                            try {
+                                Thread.sleep(1000);
+                            }catch (Exception e){
+
+                            }
+
+                            matcher.checkMutual();
+                            matcher.runtheCheck();
+                            //check if after 20 seconds if it is still waiting change key
+
+                            if(matcher.checkMutual()){
+                                mNameText.setText(dataSnapshot.child("users").child(THIS_KEY).child("name").getValue().toString());
+                                mAgeText.setText(dataSnapshot.child("users").child(THIS_KEY).child("age").getValue().toString());
+                                mGenderText.setText(dataSnapshot.child("users").child(THIS_KEY).child("gender").getValue().toString());
+                                mMobileText.setText(dataSnapshot.child("users").child(THIS_KEY).child("mobile").getValue().toString());
+
+                                matchedUser.setGender(dataSnapshot.child("users").child(THIS_KEY).child("gender").getValue().toString());
+                                matchedUser.setName(dataSnapshot.child("users").child(THIS_KEY).child("name").getValue().toString());
+                                matchedUser.setLat(Double.parseDouble(dataSnapshot.child(THIS_KEY).child("lat").getValue().toString()));
+                                matchedUser.setLng(Double.parseDouble(dataSnapshot.child(THIS_KEY).child("lat").getValue().toString()));
+                                matchedUser.setAge(Integer.parseInt(dataSnapshot.child("users").child(THIS_KEY).child("age").getValue().toString()));
+                            }
+
+
                         }
 
                         @Override
@@ -196,14 +237,10 @@ public class MatchPage extends AppCompatActivity {
         });
     }
 
-
     //THIS IS FOR THE BUTTON WHERE THE USER IS TOLD THE PUB AND ADDRESS AND THEY CAN GO TO GOOGLE MAPS.
 
     private void opePreferredLocationInMap(){
-        //this is getting the set location in my weather app, so change it for the beerapp
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-        // change the pref_location_key - these are strings -  to the address of the user.
-        //String location = getString(R.string.pref_location_key);
+        //location
         String location = mAddressText.getText().toString();
 
 
@@ -231,11 +268,14 @@ public class MatchPage extends AppCompatActivity {
         c.add(Calendar.MINUTE, 20);
         meetingTime = c;
         mTimeText.setText(sDateFormat.format(c.getTime()));
+
         //fill rest of it
+        //mAddressText.setText();
+        //mPubNameText.setText();
     }
 
 
-    public int getDiffTime(){
+    private int getDiffTime(){
         Calendar now = Calendar.getInstance();
         now.setTime(new Date());
         long result = ((meetingTime.getTime().getTime()/60000) - (now.getTime().getTime()/60000));
