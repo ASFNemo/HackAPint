@@ -15,6 +15,16 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/Accept"
+        android:background="@mipmap/ic_launcher"
+        android:layout_alignEnd="@+id/postcodeText"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/ageText"
+        android:layout_alignTop="@+id/timeText" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/googleMapsButton"
         android:background="@mipmap/botton"
         android:layout_alignBottom="@+id/timeText"
@@ -55,11 +65,11 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Time filler"
         android:id="@+id/timeText"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/postcodeText"
-        android:layout_alignStart="@+id/postcodeText"
         android:paddingBottom="6sp"
-        android:textSize="24sp"/>
+        android:textSize="24sp"
+        android:layout_marginBottom="39dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/pubNameText" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -122,19 +132,6 @@
         android:paddingTop="4sp"
         android:layout_below="@+id/ageText"
         android:layout_alignEnd="@+id/addressText" />
-
-
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Accept"
-        android:background="@mipmap/ic_launcher"
-        android:layout_alignEnd="@+id/postcodeText"
-        android:layout_alignStart="@+id/timeText"
-        android:layout_alignParentBottom="true"
-        android:layout_alignTop="@+id/pubNameText"/>
-
 
 
 </RelativeLayout>
