@@ -232,6 +232,8 @@ public class MatchPage extends AppCompatActivity {
         meetingTime = c;
         mTimeText.setText(sDateFormat.format(c.getTime()));
         //fill rest of it
+        PubMatcher pb = new PubMatcher(50.9341890,-1.3956850);
+        pb.execute();
     }
 
 

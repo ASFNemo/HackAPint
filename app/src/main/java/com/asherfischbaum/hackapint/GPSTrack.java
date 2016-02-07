@@ -31,7 +31,7 @@ public class GPSTrack implements GoogleApiClient.ConnectionCallbacks, GoogleApiC
     final String ACCESS_KEY = "kyT8ImvzNUhDKKCGLGbxFgJ60923LldfWuTeSt5m";
 
     //need a way to get USER_KEY by authentication form db
-    public final static String USER_KEY = "-K9o7msbxHVznV9UHqhB";
+    public final static String USER_KEY = "-K9o7msbxHVznV9UHqhA";
 
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
