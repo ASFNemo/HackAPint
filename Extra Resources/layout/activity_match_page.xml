@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+
+    android:layout_height="match_parent"
+
+    android:paddingBottom="@dimen/activity_vertical_margin"
+
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+
+    android:paddingRight="@dimen/activity_horizontal_margin"
+
+    android:paddingTop="@dimen/activity_vertical_margin"
+
+    tools:context="com.asherfischbaum.hackapint.MatchPage"
+
+    android:background="@mipmap/profileblanck"
+
+    android:id="@+id/ow"
+    android:orientation="vertical">
+
+    ​
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.9">
+
+            <ImageButton
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:id="@+id/backButton"
+
+                android:scaleType="fitXY"
+
+                android:background="@mipmap/arrow"
+
+                android:layout_alignParentTop="true"
+
+                android:layout_alignParentStart="true"
+                android:layout_weight="3" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/meeting"
+                android:background="@mipmap/meeting"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/name"
+                android:background="@mipmap/nametop"
+                android:layout_weight="1" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:textAppearance="?android:attr/textAppearanceLarge"
+
+                android:text="Loading..."
+
+                android:id="@+id/nameText"
+
+                android:focusableInTouchMode="true"
+
+                android:textColor="#ece2c7"
+
+                android:textSize="40dp"
+
+                android:layout_alignParentTop="true"
+
+                android:layout_alignEnd="@+id/pubNameText"
+                android:layout_weight="1"
+                android:autoText="false"
+                android:elegantTextHeight="false" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/gender"
+                android:layout_weight="1"
+                android:background="@mipmap/gender" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:textAppearance="?android:attr/textAppearanceLarge"
+
+                android:text="Loading..."
+
+                android:id="@+id/genderText"
+
+                android:layout_below="@+id/nameText"
+
+                android:layout_alignLeft="@+id/nameText"
+
+                android:layout_alignStart="@+id/nameText"
+
+                android:textSize="40dp"
+
+                android:textColor="#ece2c7"
+
+                android:paddingTop="6sp"
+                android:layout_weight="1"
+                android:elegantTextHeight="false" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/age"
+                android:background="@mipmap/age"
+                android:layout_weight="1" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:textAppearance="?android:attr/textAppearanceLarge"
+
+                android:text="Loading..."
+
+                android:id="@+id/ageText"
+
+                android:layout_below="@+id/genderText"
+
+                android:layout_alignLeft="@+id/genderText"
+
+                android:layout_alignStart="@+id/genderText"
+
+                android:textColor="#ece2c7"
+
+                android:textSize="40dp"
+
+                android:paddingTop="6sp"
+                android:layout_weight="1"
+                android:elegantTextHeight="false" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/mobile"
+                android:layout_weight="1"
+                android:background="@mipmap/mobile" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:textAppearance="?android:attr/textAppearanceLarge"
+
+                android:text="Loading..."
+
+                android:id="@+id/mobileText"
+
+                android:textSize="40dp"
+
+                android:textColor="#ece2c7"
+
+                android:paddingTop="6sp"
+
+                android:layout_below="@+id/ageText"
+
+                android:layout_alignStart="@+id/ageText"
+                android:layout_weight="1"
+                android:elegantTextHeight="false" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    ​
+
+    ​
+
+    ​
+
+    ​
+
+    ​
+
+    ​
+
+    ​
+
+    ​
+
+    ​
+
+    ​
+
+    ​
+
+    ​
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5">
+
+            <ImageView
+                android:layout_width="1061dp"
+                android:layout_height="86dp"
+                android:id="@+id/imageView"
+                android:background="@mipmap/puband"
+                android:layout_alignParentStart="false" />
+
+            <ImageButton
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:id="@+id/Accept"
+
+                android:background="@mipmap/ic_launcher"
+
+                android:layout_weight="1"
+                android:layout_alignStart="@+id/timeText"
+                android:layout_alignEnd="@+id/addressText"
+                android:layout_below="@+id/googleMapsButton"
+                android:layout_alignParentBottom="true" />
+
+            <ImageButton
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:id="@+id/googleMapsButton"
+
+                android:background="@mipmap/botton"
+
+                android:layout_weight="1"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:textAppearance="?android:attr/textAppearanceLarge"
+
+                android:text="Loading.."
+
+                android:id="@+id/addressText"
+
+                android:textSize="50sp"
+
+                android:background="#ffffff"
+
+                android:layout_gravity="right"
+                android:layout_marginRight="10dp"
+                android:paddingEnd="0dp"
+                android:paddingStart="0dp"
+                android:layout_above="@+id/Accept"
+                android:layout_alignStart="@+id/timeText" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:textAppearance="?android:attr/textAppearanceLarge"
+
+                android:text="Loading..."
+
+                android:id="@+id/pubNameText"
+
+                android:textSize="50sp"
+
+                android:layout_above="@+id/addressText"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:textAppearance="?android:attr/textAppearanceLarge"
+
+                android:text="Loading..."
+
+                android:id="@+id/timeText"
+
+                android:paddingBottom="6sp"
+
+                android:textSize="50sp"
+
+                android:layout_below="@+id/addressText"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    ​
+
+    ​
+
+    ​
+
+</LinearLayout>
+
